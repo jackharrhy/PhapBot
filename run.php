@@ -22,7 +22,7 @@ $discord->on('ready', function ($discord) {
       if (strpos($message->content, 'phapxecute ') === 0) {
         $command = substr($message->content, strlen('phapxecute '));
         $output = shell_exec($command.' 2>&1');
-        $message->channel->sendMessage('```'.$output.'```');
+        $message->channel->sendMessage('```'.str_replace('```', '\`\`\`', $output).'```');
       }
     }
   });
