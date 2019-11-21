@@ -1,0 +1,6 @@
+*.swp
+
+composer.phar
+vendor/
+
+.env
