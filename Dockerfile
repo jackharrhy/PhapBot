@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-alpine
+FROM php:8.0-fpm-alpine3.14
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer; \
     docker-php-ext-install bcmath; \
@@ -11,7 +11,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 WORKDIR /app
 
-COPY composer.json composer.lock run.php /app/
+COPY composer.json composer.lock phap.php /app/
 COPY start.sh /
 
 RUN cd /app && composer install --no-dev -o

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec php /app/run.php
+exec php /app/phap.php

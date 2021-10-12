@@ -2,18 +2,23 @@
 
 include __DIR__.'/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::create(__DIR__); $dotenv->load();
+use Discord\Discord;
+use Dotenv\Dotenv;
 
-$owner_id = getenv('PHAP_OWNER_ID');
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-$discord = new \Discord\Discord([
-  'token' => getenv('PHAP_DISCORD_TOKEN'),
+$discord_token = $_ENV['PHAP_DISCORD_TOKEN'];
+$owner_id = $_ENV['PHAP_OWNER_ID'];
+
+$discord = new Discord([
+  'token' => $discord_token,
 ]);
 
 $discord->on('ready', function ($discord) {
-  echo "Bot is ready.", PHP_EOL;
+  echo "phap", PHP_EOL;
 
-  $discord->on('message', function ($message) {
+  $discord->on('message', function ($message, $discord) {
     if (strpos($message->content, 'fap') === 0) {
       $message->reply('u mean phap');
     }
