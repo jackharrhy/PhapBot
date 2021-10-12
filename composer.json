@@ -1,16 +1,16 @@
 {
-    "name": "jaharrhy/phap-bot",
-    "description": "phap",
-    "type": "project",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Jack Arthur Harrhy",
-            "email": "me@jackharrhy.com"
-        }
-    ],
-    "require": {
-        "team-reflex/discord-php": "^4.0",
-        "vlucas/phpdotenv": "^3.6"
-    }
+	"name": "jaharrhy/phap-bot",
+	"description": "phap",
+	"type": "project",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Jack Arthur Harrhy",
+			"email": "me@jackharrhy.com"
+		}
+	],
+	"require": {
+		"team-reflex/discord-php": "^6.0",
+		"vlucas/phpdotenv": "^5.3"
+	}
 }
