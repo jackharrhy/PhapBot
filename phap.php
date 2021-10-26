@@ -23,6 +23,10 @@ $discord->on('ready', function ($discord) {
       $message->reply('u mean phap');
     }
 
+    if (strpos($message->content, 'fappuccino') === 0) {
+      $message->reply('u mean phappuccino');
+    }
+
     if ($message->author->id === $GLOBALS['owner_id']) {
       if (strpos($message->content, 'phapxecute ') === 0) {
         $command = substr($message->content, strlen('phapxecute '));
