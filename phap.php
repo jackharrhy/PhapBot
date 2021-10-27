@@ -19,14 +19,8 @@ $discord->on('ready', function ($discord) {
   echo "phap", PHP_EOL;
 
   $discord->on('message', function ($message, $discord) {
-    if (strpos($message->content, 'fappuccino') === 0) {
-      $message->reply('u mean phappuccino');
-      return;
-    }
-
-    if (strpos($message->content, 'fap') === 0) {
-      $message->reply('u mean phap');
-      return;
+    if (substr($message->content, 0, 3) === 'fap') {
+      $message->reply('u mean phap' . str_replace('@', '', substr($message->content, 3)));
     }
 
     if ($message->author->id === $GLOBALS['owner_id']) {
