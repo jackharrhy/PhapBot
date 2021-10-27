@@ -20,8 +20,8 @@ $discord->on('ready', function ($discord) {
 
   $discord->on('message', function ($message, $discord) {
 
-    if (strpos($message->content, 'fap') !== false) {
-      $message->reply('u mean ' . str_replace('@','',str_replace('fap', 'phap', $message->content)));
+    if (preg_match('/(f[ ]*a[ ]*p[ ]*)/', $message->content)) {
+      $message->reply('u mean ' . str_replace('@','',preg_replace('/(f)([ ]*a[ ]*p[ ]*)/', 'ph${2}', $message->content)));
     }
 
     if ($message->author->id === $GLOBALS['owner_id']) {
