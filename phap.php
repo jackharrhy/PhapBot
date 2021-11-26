@@ -15,13 +15,24 @@ $discord = new Discord([
   'token' => $discord_token,
 ]);
 
+function recursiveReplacement(string $message): string {
+  while(preg_match('/(f[ ]*a[ ]*p[ ]*)/', $message)) {
+    $message = preg_replace('/(f)([ ]*a[ ]*p[ ]*)/', 'ph${2}', $message);
+  }
+  return $message;
+}
+
+function filterMention(string $message): string {
+  return str_replace('@', '', $message);
+}
+
 $discord->on('ready', function ($discord) {
   echo "phap", PHP_EOL;
 
   $discord->on('message', function ($message, $discord) {
-
+    
     if (preg_match('/(f[ ]*a[ ]*p[ ]*)/', $message->content)) {
-      $message->reply('u mean ' . str_replace('@','',preg_replace('/(f)([ ]*a[ ]*p[ ]*)/', 'ph${2}', $message->content)));
+      $message->reply('u mean ' . recursiveReplacement(filterMention($message->content)));
     }
 
     if ($message->author->id === $GLOBALS['owner_id']) {
