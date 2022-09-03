@@ -5,6 +5,7 @@ include __DIR__.'/vendor/autoload.php';
 use Discord\Discord;
 use Discord\Parts\Channel\Message;
 use Discord\WebSockets\Event;
+use Discord\WebSockets\Intents;
 
 use Dotenv\Dotenv;
 
@@ -16,6 +17,7 @@ $owner_id = $_ENV['PHAP_OWNER_ID'];
 
 $discord = new Discord([
   'token' => $discord_token,
+  'intents' => Intents::getDefaultIntents() | Intents::GUILD_MESSAGES
 ]);
 
 $discord->on('ready', function ($discord) {
