@@ -2,7 +2,6 @@ version: '3'
 
 services:
   phapbot:
-    image: jackharrhy/phapbot
-    build: ./.
-    env_file:
-      - ./.env
+    image: ghcr.io/jackharrhy/phapbot:latest
+    build: .
+    env_file: .env

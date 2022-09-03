@@ -1,21 +1,13 @@
-FROM php:8.0-fpm-alpine3.14
+FROM php:8.2-rc-zts-alpine3.16
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer; \
-    docker-php-ext-install bcmath; \
-    sed -i '/phpize/i \
-    [[ ! -f "config.m4" && -f "config0.m4" ]] && mv config0.m4 config.m4' \
-    /usr/local/bin/docker-php-ext-configure; \
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer; \
-    mkdir /app && \
-    rm -rf /var/cache/apk/*
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 WORKDIR /app
 
-COPY composer.json composer.lock phap.php /app/
-COPY start.sh /
+COPY composer.json composer.lock phap.php start.sh /app/
 
 RUN cd /app && composer install --no-dev -o
 
 RUN touch .env
 
-ENTRYPOINT ["/start.sh"]
+ENTRYPOINT ["/app/start.sh"]
