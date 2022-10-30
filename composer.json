@@ -10,7 +10,7 @@
 		}
 	],
 	"require": {
-		"team-reflex/discord-php": "^7.2",
-		"vlucas/phpdotenv": "^5.4"
+		"team-reflex/discord-php": "^7.3",
+		"vlucas/phpdotenv": "^5.5"
 	}
 }
