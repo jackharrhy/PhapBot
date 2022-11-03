@@ -1,3 +1,4 @@
+
 <?php
 
 include __DIR__.'/vendor/autoload.php';
@@ -24,7 +25,7 @@ $discord->on('ready', function ($discord) {
   echo "phap", PHP_EOL;
 
   $discord->on(Event::MESSAGE_CREATE, function (Message $message, Discord $discord) {
-    if (preg_match('/(f[ ]*a[ ]*p[ ]*)/', $message->content)) {
+    if (preg_match('/(f[ ]*a[ ]*p[ ]*)/i', $message->content)) {
       $message->reply('u mean ' . str_replace('@','',preg_replace('/(f)([ ]*a[ ]*p[ ]*)/', 'ph${2}', $message->content)));
     }
 
@@ -39,3 +40,5 @@ $discord->on('ready', function ($discord) {
 });
 
 $discord->run();
+
+
