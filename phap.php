@@ -1,4 +1,3 @@
-
 <?php
 
 include __DIR__.'/vendor/autoload.php';
@@ -40,5 +39,3 @@ $discord->on('ready', function ($discord) {
 });
 
 $discord->run();
-
-
