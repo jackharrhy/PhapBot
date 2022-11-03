@@ -24,7 +24,7 @@ $discord->on('ready', function ($discord) {
   echo "phap", PHP_EOL;
 
   $discord->on(Event::MESSAGE_CREATE, function (Message $message, Discord $discord) {
-    if (preg_match('/(f[ ]*a[ ]*p[ ]*)/i', $message->content)) {
+    if (preg_match('/(f[ ]*a[ ]*p[ ]*)/', $message->content)) {
       $message->reply('u mean ' . str_replace('@','',preg_replace('/(f)([ ]*a[ ]*p[ ]*)/', 'ph${2}', $message->content)));
     }
 
