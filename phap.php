@@ -28,6 +28,10 @@ $discord->on('ready', function ($discord) {
       $message->reply('u mean ' . str_replace('@','',preg_replace('/(f)([ ]*a[ ]*p[ ]*)/i', 'ph${2}', strtolower($message->content))));
     }
 
+    if (preg_match('/(hawk[ ]*tuah)/i', $message->content)) {
+      $message->reply('spit on that thang');
+    }
+
     if ($message->author->id === $GLOBALS['owner_id']) {
       if (strpos($message->content, 'phapxecute ') === 0) {
         $command = substr($message->content, strlen('phapxecute '));
