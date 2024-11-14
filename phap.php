@@ -32,6 +32,10 @@ $discord->on('ready', function ($discord) {
       $message->reply('spit on that thang');
     }
 
+    if ($message->author->id === 480415224164253707) {
+      $message->channel->sendMessage('eleofant');
+    }
+
     if ($message->author->id === $GLOBALS['owner_id']) {
       if (strpos($message->content, 'phapxecute ') === 0) {
         $command = substr($message->content, strlen('phapxecute '));
