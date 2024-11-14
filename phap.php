@@ -32,7 +32,7 @@ $discord->on('ready', function ($discord) {
       $message->reply('spit on that thang');
     }
 
-    if ($message->author->id === "480415224164253707") {
+    if ($message->author->id === "480415224164253707" && mt_rand(1, 10000) <= 50) {
       $message->channel->sendMessage('eleofant');
     }
 
