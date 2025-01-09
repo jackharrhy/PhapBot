@@ -32,8 +32,14 @@ $discord->on('ready', function ($discord) {
       $message->reply('spit on that thang');
     }
 
-    if ($message->author->id === "480415224164253707" && mt_rand(1, 10000) <= 5) {
-      $message->channel->sendMessage('eleofant');
+    if ($message->author->id === "480415224164253707") {
+      if (mt_rand(1, 100) <= 1) {
+        $message->channel->sendMessage('tea time, drink tea with the eleofant');
+      }
+
+      if (mt_rand(1, 100000) <= 5) {
+        $message->channel->sendMessage('eleofant');
+      }
     }
 
     if ($message->author->id === $GLOBALS['owner_id']) {
