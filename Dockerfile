@@ -10,4 +10,8 @@ RUN cd /app && composer install --no-dev -o
 
 RUN touch .env
 
+RUN apk update
+RUN apk add cowsay --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/
+RUN apk add fortune --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/
+
 ENTRYPOINT ["/app/start.sh"]
