@@ -15,8 +15,8 @@ $dotenv->load();
 $discord_token = $_ENV['PHAP_DISCORD_TOKEN'];
 $owner_id = $_ENV['PHAP_OWNER_ID'];
 
-$cowsay_output = shell_exec('cowsay -l 2>&1');
 $cowsay_animals = [];
+$cowsay_output = shell_exec('cowsay -l 2>&1');
 
 if ($cowsay_output) {
   if (preg_match('/Cow files in .*:\s*(.*)/s', $cowsay_output, $matches)) {
@@ -38,7 +38,7 @@ $discord = new Discord([
 $discord->on('ready', function ($discord) {
   echo "phap", PHP_EOL;
 
-  $discord->on(Event::MESSAGE_CREATE, function (Message $message, Discord $discord) use ($cowsay_animals) {
+  $discord->on(Event::MESSAGE_CREATE, function (Message $message, Discord $discord) {
     if (preg_match('/(f[ ]*a[ ]*p[ ]*)/i', $message->content)) {
       $message->reply('u mean ' . str_replace('@','',preg_replace('/(f)([ ]*a[ ]*p[ ]*)/i', 'ph${2}', strtolower($message->content))));
     }
@@ -48,7 +48,7 @@ $discord->on('ready', function ($discord) {
     }
 
     if (preg_match('/\bi\s*n+e+e+d+\s*w+i+s+d+o+m+\b/i', $message->content)) {
-      $random_animal = $cowsay_animals[array_rand($cowsay_animals)];
+      $random_animal = $GLOBALS['cowsay_animals'][array_rand($GLOBALS['cowsay_animals'])];
       $output = shell_exec("fortune | cowsay -f $random_animal 2>&1");
       if ($output) {
         $message->reply('```' . str_replace('```', '\`\`\`', $output) . '```');
