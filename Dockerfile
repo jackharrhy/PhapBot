@@ -5,6 +5,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 WORKDIR /app
 
 COPY composer.json composer.lock phap.php start.sh /app/
+COPY assets /app/assets
 
 RUN composer install --no-dev -o
 

@@ -2,6 +2,7 @@
 
 include __DIR__.'/vendor/autoload.php';
 
+use Discord\Builders\MessageBuilder;
 use Discord\Discord;
 use Discord\Parts\Channel\Message;
 use Discord\WebSockets\Event;
@@ -30,6 +31,14 @@ if (empty($cowsay_animals)) {
   $cowsay_animals = ['cow', 'tux', 'koala', 'dragon', 'elephant', 'sheep'];
 }
 
+$insults_dir = __DIR__.'/assets/insults';
+$insults = is_dir($insults_dir) ? glob($insults_dir.'/*.mp3') : [];
+
+$bofh_excuses_file = __DIR__.'/assets/bofh_excuses.txt';
+$bofh_excuses = is_file($bofh_excuses_file)
+  ? array_values(array_filter(array_map('trim', file($bofh_excuses_file))))
+  : [];
+
 $discord = new Discord([
   'token' => $discord_token,
   'intents' => Intents::getDefaultIntents() | Intents::GUILD_MESSAGES | Intents::MESSAGE_CONTENT,
@@ -55,6 +64,27 @@ $discord->on('ready', function ($discord) {
       } else {
         $message->reply('```No wisdom available right now...```');
       }
+    }
+
+    if (preg_match('/\bi\s*(?:do\s*n[o\']?t|don[o\']?t)\s*n+e+e+d+\s*w+i+s+d+o+m+\b/i', $message->content)
+        || preg_match('/\bi\s*n+e+e+d+\s*b+a+d+\s*w+i+s+d+o+m+\b/i', $message->content)) {
+      $random_animal = $GLOBALS['cowsay_animals'][array_rand($GLOBALS['cowsay_animals'])];
+      $output = shell_exec("fortune -o | cowsay -f $random_animal 2>&1");
+      if ($output) {
+        $message->reply('```' . str_replace('```', '\`\`\`', $output) . '```');
+      } else {
+        $message->reply('```No bad wisdom available right now...```');
+      }
+    }
+
+    if (!empty($GLOBALS['insults']) && preg_match('/\b(?:o+o+p+s+(?:ie+s?)?|o+o+f+)\b/i', $message->content)) {
+      $insult = $GLOBALS['insults'][array_rand($GLOBALS['insults'])];
+      $message->channel->sendMessage(MessageBuilder::new()->addFile($insult));
+    }
+
+    if (!empty($GLOBALS['bofh_excuses']) && preg_match('/\bwhy\s+(?:is|was|are|were|did|does|do)\s+(?:\S+\s+){1,3}(?:broken|fail(?:ing|ed|s)?|busted|borked|crashing|crashed|down|dead|not\s+working)\b/i', $message->content)) {
+      $excuse = $GLOBALS['bofh_excuses'][array_rand($GLOBALS['bofh_excuses'])];
+      $message->reply('BOFH excuse: '.$excuse);
     }
 
     if ($message->author->id === $GLOBALS['owner_id']) {
