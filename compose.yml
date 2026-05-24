@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   phapbot:
     image: ghcr.io/jackharrhy/phapbot:latest

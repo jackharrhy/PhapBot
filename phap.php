@@ -32,7 +32,7 @@ if (empty($cowsay_animals)) {
 
 $discord = new Discord([
   'token' => $discord_token,
-  'intents' => Intents::getDefaultIntents() | Intents::GUILD_MESSAGES
+  'intents' => Intents::getDefaultIntents() | Intents::GUILD_MESSAGES | Intents::MESSAGE_CONTENT,
 ]);
 
 $discord->on('ready', function ($discord) {
