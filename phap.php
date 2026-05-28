@@ -48,8 +48,13 @@ $discord->on('ready', function ($discord) {
   echo "phap", PHP_EOL;
 
   $discord->on(Event::MESSAGE_CREATE, function (Message $message, Discord $discord) {
-    if (preg_match('/(f[ ]*a[ ]*p[ ]*)/i', $message->content)) {
-      $message->reply('u mean ' . str_replace('@','',preg_replace('/(f)([ ]*a[ ]*p[ ]*)/i', 'ph${2}', strtolower($message->content))));
+    // Match f-a-p with optional whitespace and/or Discord formatting characters
+    // between letters: spaces, backticks, asterisks, underscores, tildes,
+    // pipes (spoilers), and backslashes (escapes).
+    $fap_sep = '[\s`*_~|\\\\]*';
+    $fap_regex = '/(f)(' . $fap_sep . 'a' . $fap_sep . 'p' . $fap_sep . ')/i';
+    if (preg_match($fap_regex, $message->content)) {
+      $message->reply('u mean ' . str_replace('@', '', preg_replace($fap_regex, 'ph${2}', strtolower($message->content))));
     }
 
     if (preg_match('/(hawk[ ]*tuah)/i', $message->content)) {
