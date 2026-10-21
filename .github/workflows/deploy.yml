@@ -46,7 +46,7 @@ jobs:
 
       - name: Check Composer dependency audit
         run: |
-          docker build --target dependencies -t phapbot:dependencies .
+          docker buildx build --target dependencies --load -t phapbot:dependencies .
           docker run --rm --entrypoint composer phapbot:dependencies audit --no-dev
 
       - name: Log in to the Container registry

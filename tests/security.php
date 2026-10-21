@@ -50,7 +50,7 @@ foreach ($hosts as $host => $trusted) {
     $response = curl_exec($curl);
     $errno = curl_errno($curl);
     printf("PHP cURL %s: errno=%d %s\n", $host, $errno, curl_error($curl));
-    if (($trusted && $response === false) || (!$trusted && $errno !== CURLE_PEER_FAILED_VERIFICATION)) {
+    if (($trusted && $response === false) || (!$trusted && $errno !== CURLE_SSL_CACERT)) {
         throw new RuntimeException("Unexpected cURL TLS result for $host");
     }
 }
