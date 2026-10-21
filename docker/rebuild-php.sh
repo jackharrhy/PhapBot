@@ -15,8 +15,12 @@ printf '%s  %s\n' "$PHP_SHA256" /usr/src/php.tar.xz | sha256sum -c -
 docker-php-source extract
 cd /usr/src/php
 export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS"
-# php-config is from the digest-pinned official base, not application input.
-eval "./configure $configure_options"
+# php-config flattens environment assignments without quoting (PHP_UNAME
+# contains spaces). Keep the option prefix and export build metadata instead.
+configure_options="${configure_options%% build_alias=*}"
+export PHP_UNAME='Linux - Docker' PHP_BUILD_PROVIDER='https://github.com/docker-library/php'
+# All options from the pinned official image are whitespace-free.
+./configure $configure_options
 make -j2
 make install
 cp php.ini-* "$PHP_INI_DIR/"
